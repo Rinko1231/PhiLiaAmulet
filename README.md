@@ -35,17 +35,11 @@
 
 ## 🧪 How It Works | 工作原理
 
-### When you hurt a mob:  
-### 当你试图伤害一个生物时：
+- When you hurt a mob: If you’re wearing the **Philia Amulet**, and the mob is **whitelisted**, damage is canceled.  
+  当你试图伤害一个生物时：如果你佩戴了友爱护符，且目标生物在保护白名单中，伤害将被取消。
 
-- If you’re wearing the **Philia Amulet**, and the mob is **whitelisted**, damage is canceled.  
-  如果你佩戴了友爱护符，且目标生物在保护白名单中，伤害将被取消。
-
-- If the attacker and the victim **share the same owner** (e.g. both summoned by the same player), damage is canceled.  
-  如果攻击者与受害者具有相同的主人（例如都被同一个玩家召唤），伤害将被取消。
-
-- Prevents unnecessary aggression or AI conflict between friendly mobs.  
-  避免友方单位之间产生不必要的敌意或 AI 混乱。
+- If the attacker and the victim **share the same owner** (e.g. both summoned by the same player), damage is canceled, thus preventing unnecessary aggression or AI conflict between friendly mobs.  
+  如果攻击者与受害者具有相同的主人（例如都被同一个玩家召唤），伤害将被取消，避免友方单位之间产生不必要的敌意或 AI 混乱。
 
 ---
 
