@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "A": {
+      "item": "minecraft:apple"
+    },
+    "G": {
+      "item": "minecraft:emerald"
+    },
+    "P": {
+      "item": "minecraft:pink_dye"
+    }
+  },
+  "pattern": [
+    "SPS",
+    "AGA"
+  ],
+  "result": {
+    "item": "philiaamulet:philia_amulet"
+  }
+}
