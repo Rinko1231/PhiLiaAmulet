@@ -8,10 +8,10 @@
 ## 🧭 Overview | 模组简介
 
 **EN**  
-**PhiLia Amulet** is a lightweight and configurable Minecraft mod (Forge) that prevents unintentional damage to certain mobs (like villagers, iron golems, guards, etc.) when using area-of-effect or ranged attacks from other magic-based mods like *Iron's Spells 'n Spellbooks* or *Goety*. It also blocks pets and summons with the **same owner** from attacking each other due to friendly fire or accidental aggression.
+**PhiLia Amulet** is a lightweight and configurable Minecraft mod (Forge) that prevents unintentional damage to certain mobs (like villagers, iron golems, guard villagers, etc.) when using area-of-effect or ranged attacks from other magic-based mods like *Iron's Spells 'n Spellbooks* or *Goety*. It also blocks pets and summons with the **same owner** from attacking each other due to friendly fire or accidental aggression.
 
 **CN**  
-**友爱护符 PhiLia Amulet** 是一个轻量级、可配置的 Forge 模组，旨在解决使用魔法模组（如 *Iron's Spells 'n Spellbooks* 和 *Goety*）时容易误伤友方单位的问题。佩戴护符后，你将不会误伤特定生物（如村民、铁傀儡、村庄守卫等），同时还会阻止同一玩家拥有的宠物或召唤物之间的互相攻击。
+**友爱护符 PhiLia Amulet** 是一个轻量级、可配置的 Forge 模组，旨在解决使用魔法模组（如 *Iron's Spells 'n Spellbooks* 和 *Goety*）时容易误伤友方单位的问题。佩戴护符后，你将不会误伤特定生物（如村民、铁傀儡、警卫村民等），同时还会阻止同一玩家拥有的宠物或召唤物之间的互相攻击。
 
 ---
 
