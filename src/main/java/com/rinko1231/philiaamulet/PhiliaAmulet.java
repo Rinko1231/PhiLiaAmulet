@@ -8,24 +8,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-/*
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.entity.projectile.ThrownPotion;
-
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-
-import net.minecraftforge.registries.ForgeRegistries;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
-
-import java.util.Optional;*/
 
 @Mod(PhiliaAmulet.MOD_ID)
 public class PhiliaAmulet {
@@ -41,7 +23,7 @@ public class PhiliaAmulet {
     }
 
     //测试
-    /*
+/*
     @SubscribeEvent
     public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
 

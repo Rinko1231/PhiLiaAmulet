@@ -2,6 +2,7 @@ package com.rinko1231.philiaamulet.mixin.nomagic;
 
 import com.rinko1231.philiaamulet.config.PhiliaAmuletConfig;
 import com.rinko1231.philiaamulet.init.itemRegistry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -38,6 +39,19 @@ public abstract class LivingEntityMixin {
             if (attackerOwner != null && victimOwner != null && attackerOwner.equals(victimOwner)) {
                 cir.setReturnValue(false);
                 return;
+            }
+        }
+
+        // 攻击者的主人是佩戴了护符的玩家且受害者是白名单生物
+        if (PhiliaAmuletConfig.petsPhilia.get() && trueAttacker instanceof LivingEntity attacker) {
+            UUID ownerUUID = Philia$getEntityOwnerUUID(attacker);
+            if (ownerUUID != null && victim instanceof LivingEntity) {
+                ServerLevel level = (ServerLevel) victim.level();
+                ServerPlayer ownerPlayer = (ServerPlayer) level.getPlayerByUUID(ownerUUID);
+                if (ownerPlayer != null && Philia$isEquipAmulet(ownerPlayer) && Philia$isEntityWhitelisted(victim)) {
+                    cir.setReturnValue(false);
+                    return;
+                }
             }
         }
 

@@ -12,6 +12,7 @@ public class PhiliaAmuletConfig {
     public static ForgeConfigSpec SPEC;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> entityWhitelist;
     public static ForgeConfigSpec.BooleanValue NoMeleeProtection;
+    public static ForgeConfigSpec.BooleanValue petsPhilia;
     public static ForgeConfigSpec.BooleanValue petsFriendship;
 
     static {
@@ -24,6 +25,9 @@ public class PhiliaAmuletConfig {
         NoMeleeProtection = BUILDER
                 .comment("Do not enable protection as for Melee Damage")
                 .define("No Melee Damage Protection", false);
+        petsPhilia = BUILDER
+                .comment("Pets and Summons won't hurt whitelisted mobs when putting on PhiLia Amulet")
+                .define("Pets are friendly to whitelisted mobs", true);
         petsFriendship = BUILDER
                 .comment("Disable damage between pets or summons which have the same owner")
                 .define("Pets are friendly to each other", true);
