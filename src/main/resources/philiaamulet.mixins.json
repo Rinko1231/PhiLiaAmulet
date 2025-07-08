@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.rinko1231.philiaamulet.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "philiaamulet.refmap.json",
+  "plugin": "com.rinko1231.philiaamulet.mixin.PhiliaMixinPlugin",
+  "mixins": [
+    "iss.LivingEntityMixinISS",
+    "nomagic.LivingEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
