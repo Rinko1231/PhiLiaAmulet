@@ -4,8 +4,17 @@ package com.rinko1231.philiaamulet;
 import com.rinko1231.philiaamulet.init.TabInit;
 import com.rinko1231.philiaamulet.init.itemRegistry;
 import com.rinko1231.philiaamulet.config.*;
+
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.common.MinecraftForge;
+/*
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+*/
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -43,65 +52,3 @@ public class PhiliaAmulet {
 
 
 }
-
-    /*
-    @SubscribeEvent
-    public void hurtModify(LivingHurtEvent event)
-    {
-        LivingEntity victim = event.getEntity();
-        DamageSource source = event.getSource();
-
-        // 直接来自玩家
-        if (source.getEntity() instanceof ServerPlayer player) {
-            if (entityShouldNotBeHurt(player, victim) && !PhiliaAmuletConfig.NoMeleeProtection.get()) {
-                event.setCanceled(true);
-            }
-            return;
-        }
-
-        // 投射物（如箭、雪球、火球等）
-        if (source.getDirectEntity() instanceof Projectile projectile) {
-            if (projectile.getOwner() instanceof ServerPlayer player) {
-                if (entityShouldNotBeHurt(player, victim)) {
-                    event.setCanceled(true);
-                }
-                return;
-            }
-        }
-
-        // 投掷药水
-        if (source.getDirectEntity() instanceof ThrownPotion potion) {
-            if (potion.getOwner() instanceof ServerPlayer player) {
-                if (entityShouldNotBeHurt(player, victim)) {
-                    event.setCanceled(true);
-                }
-                return;
-            }
-        }
-
-        // 效果云（药水云）
-        if (source.getDirectEntity() instanceof AreaEffectCloud cloud) {
-            if (cloud.getOwner() instanceof ServerPlayer player) {
-                if (entityShouldNotBeHurt(player, victim)) {
-                    event.setCanceled(true);
-                }
-            }
-        }
-
-
-    }
-
-    private boolean entityShouldNotBeHurt(ServerPlayer player, LivingEntity entity)
-    {
-        return isEntityWhitelisted(entity) && isEquipAmulet(player);
-
-    }
-    public boolean isEntityWhitelisted(LivingEntity entity) {
-        String entityId = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType()).toString();
-        return PhiliaAmuletConfig.entityWhitelist.get().contains(entityId);
-    }
-    public static boolean isEquipAmulet(LivingEntity livingEntity) {
-        Optional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(livingEntity).resolve();
-        return curiosInventory.map(iCuriosItemHandler -> iCuriosItemHandler.isEquipped(itemRegistry.PHILIA_AMULET.get())).orElse(false);
-    }
-*/

@@ -35,8 +35,12 @@ public abstract class LivingEntityMixin {
             @Nullable UUID attackerOwner = Philia$getEntityOwnerUUID(attacker);
             @Nullable UUID victimOwner = Philia$getEntityOwnerUUID(victim);
 
-            //主人相同时才阻止伤害
+            //主人相同时或自己宠物打自己才阻止伤害
             if (attackerOwner != null && victimOwner != null && attackerOwner.equals(victimOwner)) {
+                if (attacker == victim && !PhiliaAmuletConfig.NoSelfHarm.get()) {
+                    // 允许自残(可还行
+                    return;
+                }
                 cir.setReturnValue(false);
                 return;
             }
@@ -118,7 +122,13 @@ public abstract class LivingEntityMixin {
     @Unique
     @Nullable
     private UUID Philia$getEntityOwnerUUID(Entity entity) {
-        // 驯服动物（狼、猫等）
+
+        // 玩家自己就是自己的owner
+        if (entity instanceof ServerPlayer player) {
+            return player.getUUID();
+        }
+
+        // 驯服动物
         if (entity instanceof TamableAnimal tameable && tameable.isTame()) {
             return tameable.getOwnerUUID();
         }

@@ -13,6 +13,7 @@ public class PhiliaAmuletConfig {
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> entityWhitelist;
     public static ForgeConfigSpec.BooleanValue NoMeleeProtection;
     public static ForgeConfigSpec.BooleanValue petsPhilia;
+    public static ForgeConfigSpec.BooleanValue NoSelfHarm;
     public static ForgeConfigSpec.BooleanValue petsFriendship;
 
     static {
@@ -22,6 +23,10 @@ public class PhiliaAmuletConfig {
                 .comment("Living Entity Whitelist")
                 .defineList("Entity Whitelist", List.of("minecraft:villager", "minecraft:iron_golem", "minecraft:allay", "minecraft:wandering_trader", "guardvillagers:guard"),
                         element -> element instanceof String);
+        NoSelfHarm = BUILDER
+                .comment("You can not hurt yourself")
+                .comment("PS. Regardless of whether NoSelfHarm is enabled, pets will not harm you.")
+                .define("No Self-Harm", false);
         NoMeleeProtection = BUILDER
                 .comment("Do not enable protection as for Melee Damage")
                 .define("No Melee Damage Protection", false);
