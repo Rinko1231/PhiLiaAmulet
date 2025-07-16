@@ -15,6 +15,7 @@ public class PhiliaAmuletConfig {
     public static ForgeConfigSpec.BooleanValue petsPhilia;
     public static ForgeConfigSpec.BooleanValue NoSelfHarm;
     public static ForgeConfigSpec.BooleanValue petsFriendship;
+    public static ForgeConfigSpec.BooleanValue allowOwnerHurtPets;
 
     static {
         BUILDER.push("Config");
@@ -25,6 +26,7 @@ public class PhiliaAmuletConfig {
                         element -> element instanceof String);
         NoSelfHarm = BUILDER
                 .comment("You can not hurt yourself")
+                .comment("And your pets can not hurt themselves")
                 .comment("PS. Regardless of whether NoSelfHarm is enabled, pets will not harm you.")
                 .define("No Self-Harm", false);
         NoMeleeProtection = BUILDER
@@ -36,6 +38,10 @@ public class PhiliaAmuletConfig {
         petsFriendship = BUILDER
                 .comment("Disable damage between pets or summons which have the same owner")
                 .define("Pets are friendly to each other", true);
+        allowOwnerHurtPets = BUILDER
+                .comment("If enabled, this mod won't stop you from hurting your pets or summons.")
+                .comment("But other mods might still care about them.")
+                .define("I don't care", true);
 
         SPEC = BUILDER.build();
     }

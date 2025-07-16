@@ -2,6 +2,9 @@ package com.rinko1231.philiaamulet.mixin.nomagic;
 
 import com.rinko1231.philiaamulet.config.PhiliaAmuletConfig;
 import com.rinko1231.philiaamulet.init.itemRegistry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -30,6 +33,92 @@ public abstract class LivingEntityMixin {
         Entity trueAttacker = source.getEntity();
         if (victim.level().isClientSide) return;
 
+        // 先处理攻击者是玩家或其控制的实体佩戴护符并试图攻击白名单生物（最高优先）
+        if (trueAttacker instanceof ServerPlayer player) {
+            if (Philia$entityShouldNotBeHurt(player, victim) && !PhiliaAmuletConfig.NoMeleeProtection.get()) {
+                cir.setReturnValue(false);
+                return;
+            }
+        }
+
+        if (source.getDirectEntity() instanceof Projectile projectile) {
+            if (projectile.getOwner() instanceof ServerPlayer player) {
+                if (Philia$entityShouldNotBeHurt(player, victim)) {
+                    cir.setReturnValue(false);
+                    return;
+                }
+            }
+        }
+
+        if (source.getDirectEntity() instanceof ThrownPotion potion) {
+            if (potion.getOwner() instanceof ServerPlayer player) {
+                if (Philia$entityShouldNotBeHurt(player, victim)) {
+                    cir.setReturnValue(false);
+                    return;
+                }
+            }
+        }
+
+        if (source.getDirectEntity() instanceof AreaEffectCloud cloud) {
+            if (cloud.getOwner() instanceof ServerPlayer player) {
+                if (Philia$entityShouldNotBeHurt(player, victim)) {
+                    cir.setReturnValue(false);
+                    return;
+                }
+            }
+        }
+
+        if (PhiliaAmuletConfig.petsFriendship.get() && trueAttacker instanceof LivingEntity attacker) {
+            @Nullable UUID attackerOwner = Philia$getEntityOwnerUUID(attacker);
+            @Nullable UUID victimOwner = Philia$getEntityOwnerUUID(victim);
+
+            if (attackerOwner != null && victimOwner != null && attackerOwner.equals(victimOwner)) {
+                if (attacker == victim && !PhiliaAmuletConfig.NoSelfHarm.get()) {
+                    return;
+                }
+
+
+                if (attacker instanceof ServerPlayer ownerPlayer) {
+                    if (Philia$isEquipAmulet(ownerPlayer) && Philia$isEntityWhitelisted(ownerPlayer, victim)) {
+                        // 如果在护符白名单中阻止
+                        cir.setReturnValue(false);
+                        return;
+                    }
+
+                    // 不在白名单，允许打自己宠物（如果配置开启）
+                    if (PhiliaAmuletConfig.allowOwnerHurtPets.get()) {
+                        return;
+                    }
+                }
+
+                // 没有护符或者不允许打宠物
+                cir.setReturnValue(false);
+                return;
+            }
+        }
+
+        // 最后处理“宠物佩戴者攻击白名单”
+        if (PhiliaAmuletConfig.petsPhilia.get() && trueAttacker instanceof LivingEntity attacker) {
+            UUID ownerUUID = Philia$getEntityOwnerUUID(attacker);
+            if (ownerUUID != null && victim instanceof LivingEntity) {
+                ServerLevel level = (ServerLevel) victim.level();
+                ServerPlayer ownerPlayer = (ServerPlayer) level.getPlayerByUUID(ownerUUID);
+                if (ownerPlayer != null && Philia$isEquipAmulet(ownerPlayer) && Philia$isEntityWhitelisted(ownerPlayer, victim)) {
+                    cir.setReturnValue(false);
+                    return;
+                }
+            }
+        }
+    }
+
+
+/*
+    @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
+    private void philiaAmulet_preHurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity victim = (LivingEntity) (Object) this;
+        Entity trueAttacker = source.getEntity();
+        if (victim.level().isClientSide) return;
+
 
         if (PhiliaAmuletConfig.petsFriendship.get() && trueAttacker instanceof LivingEntity attacker) {
             @Nullable UUID attackerOwner = Philia$getEntityOwnerUUID(attacker);
@@ -38,9 +127,14 @@ public abstract class LivingEntityMixin {
             //主人相同时或自己宠物打自己才阻止伤害
             if (attackerOwner != null && victimOwner != null && attackerOwner.equals(victimOwner)) {
                 if (attacker == victim && !PhiliaAmuletConfig.NoSelfHarm.get()) {
-                    // 允许自残(可还行
+                    // 允许自残
                     return;
                 }
+                if (attacker instanceof ServerPlayer && PhiliaAmuletConfig.allowOwnerHurtPets.get() && attacker != victim) {
+                    //允许打自己宠物
+                    return;
+                }
+
                 cir.setReturnValue(false);
                 return;
             }
@@ -52,7 +146,7 @@ public abstract class LivingEntityMixin {
             if (ownerUUID != null && victim instanceof LivingEntity) {
                 ServerLevel level = (ServerLevel) victim.level();
                 ServerPlayer ownerPlayer = (ServerPlayer) level.getPlayerByUUID(ownerUUID);
-                if (ownerPlayer != null && Philia$isEquipAmulet(ownerPlayer) && Philia$isEntityWhitelisted(victim)) {
+                if (ownerPlayer != null && Philia$isEquipAmulet(ownerPlayer) && Philia$isEntityWhitelisted(ownerPlayer,victim)) {
                     cir.setReturnValue(false);
                     return;
                 }
@@ -98,17 +192,46 @@ public abstract class LivingEntityMixin {
         }
 
 
-    }
+    }*/
 
     @Unique
     private boolean Philia$entityShouldNotBeHurt(ServerPlayer player, LivingEntity entity) {
-        return Philia$isEntityWhitelisted(entity) && Philia$isEquipAmulet(player);
+        return Philia$isEntityWhitelisted(player, entity) && Philia$isEquipAmulet(player);
     }
 
     @Unique
     private boolean Philia$isEntityWhitelisted(LivingEntity entity) {
         String entityId = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType()).toString();
         return PhiliaAmuletConfig.entityWhitelist.get().contains(entityId);
+    }
+
+    @Unique
+    private boolean Philia$isEntityWhitelisted(LivingEntity attacker, LivingEntity target) {
+        String entityId = ForgeRegistries.ENTITY_TYPES.getKey(target.getType()).toString();
+
+        // 全局白名单
+        if (PhiliaAmuletConfig.entityWhitelist.get().contains(entityId)) {
+            return true;
+        }
+
+        // 检查佩戴护符的私有白名单
+        Optional<ICuriosItemHandler> curios = CuriosApi.getCuriosInventory(attacker).resolve();
+        if (curios.isPresent()) {
+            ICuriosItemHandler handler = curios.get();
+            for (var stack : handler.findCurios(itemRegistry.PHILIA_AMULET.get())) {
+                CompoundTag tag = stack.stack().getOrCreateTag();
+                if (tag.contains("Whitelist", Tag.TAG_LIST)) {
+                    ListTag list = tag.getList("Whitelist", Tag.TAG_STRING);
+                    for (Tag id : list) {
+                        if (id.getAsString().equals(entityId)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     @Unique
