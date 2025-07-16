@@ -85,13 +85,7 @@ Config file path | 配置文件路径：
 |-----------------------------|-----------------------------------------|------------------------------------------|
 | Iron's Spells 'n Spellbooks | Summons & spell effects auto-protected  | 魔法与召唤单位自动适配                   |
 | Goety                       | Summoned skeletons and undead servants  | 死灵、仆从自动适配                       |
-| Any `Tameable`, `Projectile`, `AreaEffectCloud` based mod | Full support | 使用标准生物/投射物系统的模组自动兼容   |
+| Any `Tameable`, `Projectile`, `AreaEffectCloud` etc. based mod | Full support | 使用标准生物/投射物系统的模组自动兼容   |
 
----
-
-## 💬 Feedback & Suggestions | 反馈与建议
-
-欢迎在 CurseForge 或 GitHub 页面提交建议与反馈！  
-Feel free to submit issues, ideas, or PRs on CurseForge or GitHub.
 
 ---
