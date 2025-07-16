@@ -8,10 +8,10 @@
 ## 🧭 Overview | 模组简介
 
 **EN**  
-**PhiLia Amulet** is a lightweight and configurable Minecraft mod (Forge) that prevents unintentional damage to friendly or owned mobs (like villagers, pets, summons, etc.), even from ranged, AoE, or magic attacks. Pets and summons from the same player won’t fight each other, and you can customize protection targets through **a global config whitelist** and **per-amulet whitelist**.
+**PhiLia Amulet** is a lightweight and configurable Minecraft mod (NeoForge/Forge) that prevents unintentional damage to friendly or owned mobs (like villagers, pets, summons, etc.), even from ranged, AoE, or magic attacks. Pets and summons from the same player won’t fight each other, and you can customize protection targets through **a global config whitelist** and **per-amulet whitelist**.
 
 **CN**  
-**友爱护符 PhiLia Amulet** 是一个轻量级、可配置的 Forge 模组，防止你在使用近战、远程、范围或魔法攻击时误伤友方单位（如村民、宠物、召唤物等）。你还可以通过**配置文件的全局白名单**以及**每个护符独立维护的白名单**来自定义保护目标。同一玩家拥有的宠物和召唤物也不会相互攻击。
+**友爱护符 PhiLia Amulet** 是一个轻量级、可配置的 NeoForge/Forge 模组，防止你在使用近战、远程、范围或魔法攻击时误伤友方单位（如村民、宠物、召唤物等）。你还可以通过**配置文件的全局白名单**以及**每个护符独立维护的白名单**来自定义保护目标。同一玩家拥有的宠物和召唤物也不会相互攻击。
 
 ---
 
