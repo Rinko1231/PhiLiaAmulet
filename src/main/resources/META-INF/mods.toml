@@ -4,7 +4,7 @@ license="GPLv3"
 
 [[mods]]
 modId="philiaamulet"
-version="1.20.1-1.0.2"
+version="1.20.1-1.0.4"
 logoFile="logo.png" #optional
 displayName="PhiLia Amulet"
 authors="Rinko1231"

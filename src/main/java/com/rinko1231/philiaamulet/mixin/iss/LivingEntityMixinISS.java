@@ -185,7 +185,7 @@ public abstract class LivingEntityMixinISS {
 
         // 召唤生物
         if (entity instanceof IMagicSummon summon) {
-            LivingEntity summoner = summon.getSummoner();
+            Entity summoner = summon.getSummoner();
             if (summoner != null) {
                 return summoner.getUUID();
             }

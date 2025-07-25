@@ -132,7 +132,7 @@ dependencies {
 
     runtimeOnly "curse.maven:geckolib-388172:6659026"
     runtimeOnly "curse.maven:playeranimator-658587:6024462"
-    implementation "curse.maven:irons-spells-n-spellbooks-855414:6718356"
+    implementation "curse.maven:irons-spells-n-spellbooks-855414:6769020"
 
     runtimeOnly "curse.maven:jupiter-1072905:6770505"
     runtimeOnly "curse.maven:uranus-1010827:6552770"
