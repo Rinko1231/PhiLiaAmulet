@@ -138,6 +138,11 @@ dependencies {
     runtimeOnly "curse.maven:uranus-1010827:6552770"
     runtimeOnly "curse.maven:iceandfire-ce-1040076:6758480"
 
+    runtimeOnly "curse.maven:architectury-api-419699:5786327"
+    runtimeOnly "curse.maven:rhino-416294:6184623"
+    runtimeOnly "curse.maven:kubejs-238086:5810100"
+    runtimeOnly "curse.maven:kubejs-irons-spells-980834:6556148"
+
     // Example mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
