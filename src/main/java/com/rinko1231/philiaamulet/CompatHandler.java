@@ -1,6 +1,7 @@
 package com.rinko1231.philiaamulet;
 
 import net.neoforged.fml.ModList;
+import net.neoforged.fml.loading.FMLLoader;
 
 public class CompatHandler {
 
@@ -13,6 +14,6 @@ public class CompatHandler {
         }
 
         public CompatHandler() {
-            this.ironMagicLoaded = ModList.get().isLoaded("ironsspellbooks");
+            this.ironMagicLoaded = (FMLLoader.getLoadingModList().getModFileById("irons_spellbooks") !=null);
         }
     }
