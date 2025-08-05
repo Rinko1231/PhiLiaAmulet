@@ -6,6 +6,7 @@
   "refmap": "philiaamulet.refmap.json",
   "plugin": "com.rinko1231.philiaamulet.mixin.PhiliaMixinPlugin",
   "mixins": [
+    "iss.DamageSourcesMixinISS",
     "iss.LivingEntityMixinISS",
     "nomagic.LivingEntityMixin"
   ],
