@@ -112,88 +112,6 @@ public abstract class LivingEntityMixinISS {
         }
     }
 
-/*
-    @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
-    private void philiaAmulet_preHurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        LivingEntity victim = (LivingEntity) (Object) this;
-        Entity trueAttacker = source.getEntity();
-        if (victim.level().isClientSide) return;
-
-
-        if (PhiliaAmuletConfig.petsFriendship.get() && trueAttacker instanceof LivingEntity attacker) {
-            @Nullable UUID attackerOwner = Philia$getEntityOwnerUUID(attacker);
-            @Nullable UUID victimOwner = Philia$getEntityOwnerUUID(victim);
-
-            //主人相同或自己宠物打自己才阻止伤害
-            if (attackerOwner != null && victimOwner != null && attackerOwner.equals(victimOwner)) {
-                if (attacker == victim && !PhiliaAmuletConfig.NoSelfHarm.get()) {
-                    // 允许自残
-                    return;
-                }
-                if (attacker instanceof ServerPlayer && PhiliaAmuletConfig.allowOwnerHurtPets.get() && attacker != victim) {
-                    //允许打自己宠物
-                    return;
-                }
-
-                cir.setReturnValue(false);
-                return;
-            }
-        }
-
-        // 攻击者的主人是佩戴了护符的玩家且受害者是白名单生物
-        if (PhiliaAmuletConfig.petsPhilia.get() && trueAttacker instanceof LivingEntity attacker) {
-            UUID ownerUUID = Philia$getEntityOwnerUUID(attacker);
-            if (ownerUUID != null && victim instanceof LivingEntity) {
-                ServerLevel level = (ServerLevel) victim.level();
-                ServerPlayer ownerPlayer = (ServerPlayer) level.getPlayerByUUID(ownerUUID);
-                if (ownerPlayer != null && Philia$isEquipAmulet(ownerPlayer) && Philia$isEntityWhitelisted(ownerPlayer,victim)) {
-                    cir.setReturnValue(false);
-                    return;
-                }
-            }
-        }
-
-
-
-        // 玩家
-        if (trueAttacker instanceof ServerPlayer player) {
-            if (Philia$entityShouldNotBeHurt(player, victim) && !PhiliaAmuletConfig.NoMeleeProtection.get()) {
-                cir.setReturnValue(false);
-                return;
-            }
-        }
-
-        // 投射物
-        if (source.getDirectEntity() instanceof Projectile projectile) {
-            if (projectile.getOwner() instanceof ServerPlayer player) {
-                if (Philia$entityShouldNotBeHurt(player, victim)) {
-                    cir.setReturnValue(false);
-                    return;
-                }
-            }
-        }
-
-        // 投掷药水
-        if (source.getDirectEntity() instanceof ThrownPotion potion) {
-            if (potion.getOwner() instanceof ServerPlayer player) {
-                if (Philia$entityShouldNotBeHurt(player, victim)) {
-                    cir.setReturnValue(false);
-                    return;
-                }
-            }
-        }
-
-        // 效果云
-        if (source.getDirectEntity() instanceof AreaEffectCloud cloud) {
-            if (cloud.getOwner() instanceof ServerPlayer player) {
-                if (Philia$entityShouldNotBeHurt(player, victim)) {
-                    cir.setReturnValue(false);
-                }
-            }
-        }
-
-
-    }*/
 
     @Unique
     private boolean Philia$entityShouldNotBeHurt(ServerPlayer player, LivingEntity entity) {
@@ -294,4 +212,86 @@ public abstract class LivingEntityMixinISS {
         return null;
     }
 
+/*
+    @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
+    private void philiaAmulet_preHurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity victim = (LivingEntity) (Object) this;
+        Entity trueAttacker = source.getEntity();
+        if (victim.level().isClientSide) return;
+
+
+        if (PhiliaAmuletConfig.petsFriendship.get() && trueAttacker instanceof LivingEntity attacker) {
+            @Nullable UUID attackerOwner = Philia$getEntityOwnerUUID(attacker);
+            @Nullable UUID victimOwner = Philia$getEntityOwnerUUID(victim);
+
+            //主人相同或自己宠物打自己才阻止伤害
+            if (attackerOwner != null && victimOwner != null && attackerOwner.equals(victimOwner)) {
+                if (attacker == victim && !PhiliaAmuletConfig.NoSelfHarm.get()) {
+                    // 允许自残
+                    return;
+                }
+                if (attacker instanceof ServerPlayer && PhiliaAmuletConfig.allowOwnerHurtPets.get() && attacker != victim) {
+                    //允许打自己宠物
+                    return;
+                }
+
+                cir.setReturnValue(false);
+                return;
+            }
+        }
+
+        // 攻击者的主人是佩戴了护符的玩家且受害者是白名单生物
+        if (PhiliaAmuletConfig.petsPhilia.get() && trueAttacker instanceof LivingEntity attacker) {
+            UUID ownerUUID = Philia$getEntityOwnerUUID(attacker);
+            if (ownerUUID != null && victim instanceof LivingEntity) {
+                ServerLevel level = (ServerLevel) victim.level();
+                ServerPlayer ownerPlayer = (ServerPlayer) level.getPlayerByUUID(ownerUUID);
+                if (ownerPlayer != null && Philia$isEquipAmulet(ownerPlayer) && Philia$isEntityWhitelisted(ownerPlayer,victim)) {
+                    cir.setReturnValue(false);
+                    return;
+                }
+            }
+        }
+
+
+
+        // 玩家
+        if (trueAttacker instanceof ServerPlayer player) {
+            if (Philia$entityShouldNotBeHurt(player, victim) && !PhiliaAmuletConfig.NoMeleeProtection.get()) {
+                cir.setReturnValue(false);
+                return;
+            }
+        }
+
+        // 投射物
+        if (source.getDirectEntity() instanceof Projectile projectile) {
+            if (projectile.getOwner() instanceof ServerPlayer player) {
+                if (Philia$entityShouldNotBeHurt(player, victim)) {
+                    cir.setReturnValue(false);
+                    return;
+                }
+            }
+        }
+
+        // 投掷药水
+        if (source.getDirectEntity() instanceof ThrownPotion potion) {
+            if (potion.getOwner() instanceof ServerPlayer player) {
+                if (Philia$entityShouldNotBeHurt(player, victim)) {
+                    cir.setReturnValue(false);
+                    return;
+                }
+            }
+        }
+
+        // 效果云
+        if (source.getDirectEntity() instanceof AreaEffectCloud cloud) {
+            if (cloud.getOwner() instanceof ServerPlayer player) {
+                if (Philia$entityShouldNotBeHurt(player, victim)) {
+                    cir.setReturnValue(false);
+                }
+            }
+        }
+
+
+    }*/
 }
